@@ -11,4 +11,6 @@
 .submit_button {
   align-self: center;
   margin-top: 10px;
+  background: red;
+  text-align: center;
 }
