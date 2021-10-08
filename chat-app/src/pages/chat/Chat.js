@@ -1,10 +1,11 @@
+import React, { useRef } from "react";
 import "./Chat.css";
 import { useLocation } from "react-router";
 import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import moment from "moment";
 
-var socket = io("http://localhost:8080", {
+var socket = io("https://mysterious-mesa-55870.herokuapp.com", {
   transports: ["websocket"],
 });
 
@@ -13,6 +14,7 @@ export default function Chat(props) {
   const { userName, room } = location.state;
   const [text, setText] = useState("");
   const [messages, setMessages] = useState([]);
+  const divRref = useRef(null);
 
   useEffect(() => {
     socket.emit("join_room", room, (arg) => {
@@ -27,6 +29,14 @@ export default function Chat(props) {
       },
       room,
     );
+
+    divRref.current.scrollIntoView({
+      behavior: "smooth",
+      block: "end",
+      inline: "nearest",
+    });
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   socket.on("user_joined", (joinedUser) => {
@@ -58,21 +68,32 @@ export default function Chat(props) {
         <img className='avatarImg' alt='user_avatar' src='../avatr1.png' />
         <p className='user_name'>{userName}</p>
       </header>
-      <div className='chat_body'>
+
+      <div ref={divRref} className='chat_body'>
         <ul>
           {messages.map((res, index) => {
+            let isCurrentUser = res.userName === userName;
             return (
               <li
                 style={{
-                  justifyContent:
-                    res.userName === userName ? "flex-end" : "flex-start",
+                  justifyContent: isCurrentUser ? "flex-end" : "flex-start",
                 }}
                 key={res.date + index}
                 className={"msg_text"}>
+                {/* && messages.length - 1 === index  */}
+                {!isCurrentUser && messages.length - 1 === index ? (
+                  <img
+                    className='avatarImg'
+                    alt='user_avatar'
+                    src='../userIcon.png'
+                  />
+                ) : (
+                  <span className='avatarImg' />
+                )}
+
                 <div
                   style={{
-                    background:
-                      res.userName === userName ? "#ff1717" : "#cd5c5c",
+                    background: isCurrentUser ? "#E1F1F8" : "#F2F2F2",
                   }}
                   className='msg_text_container'>
                   <span>{res.text} </span>
@@ -89,8 +110,12 @@ export default function Chat(props) {
       <footer>
         <form className='input_container'>
           <input value={text} onChange={handleChange} className='chat_input' />
-          <button disabled={!text} onClick={send} className='chat_button'>
-            SEND!
+          <button
+            style={{ background: text ? "black" : " #80808087" }}
+            disabled={!text}
+            onClick={send}
+            className='chat_button'>
+            Send
           </button>
         </form>
       </footer>

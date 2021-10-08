@@ -11,16 +11,28 @@ export default function Home(params) {
       <h1>Elixirator chat</h1>
       <form className='form'>
         <label>Enter you name:</label>
-        <input value={userName} onChange={(e) => setUserName(e.target.value)} />
+        <input
+          className='input'
+          value={userName}
+          onChange={(e) => setUserName(e.target.value)}
+        />
         <label>Enter Room id:</label>
-        <input value={room} onChange={(e) => setRoom(e.target.value)} />
+        <input
+          className='input'
+          value={room}
+          onChange={(e) => setRoom(e.target.value)}
+        />
 
         <Link
           className='submit_button'
-          to={{
-            pathname: userName ? "/chat" : null,
-            state: { userName, room },
-          }}>
+          to={
+            room && userName
+              ? {
+                  pathname: userName ? "/chat" : null,
+                  state: { userName, room },
+                }
+              : null
+          }>
           Submit
         </Link>
       </form>

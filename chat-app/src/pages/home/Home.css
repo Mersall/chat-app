@@ -8,9 +8,17 @@
   align-items: baseline;
   flex-direction: column;
 }
+.input {
+  height: 20px;
+  width: 200px;
+}
 .submit_button {
   align-self: center;
   margin-top: 10px;
   background: red;
   text-align: center;
+  padding: 10px;
+  border-radius: 3px;
+  color: white;
+  text-decoration: none;
 }
