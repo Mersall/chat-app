@@ -18,11 +18,15 @@ export default function Chat(props) {
     socket.emit("join_room", room, (arg) => {
       alert(arg);
     });
-    socket.emit("user_joined", {
-      text: `${userName} join the room`,
-      userName,
-      date: new Date(),
-    });
+    socket.emit(
+      "user_joined",
+      {
+        text: `${userName} join the room`,
+        userName,
+        date: new Date(),
+      },
+      room,
+    );
   }, []);
 
   socket.on("user_joined", (joinedUser) => {

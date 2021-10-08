@@ -10,14 +10,14 @@ const server = express()
 const io = socketIO(server);
 
 io.on("connection", async (socket) => {
-  socket.on("user_joined", (userInfo) => {
-    socket.broadcast.emit("user_joined", userInfo);
+  socket.on("user_joined", (userInfo, room) => {
+    socket.broadcast.to(room).emit("user_joined", userInfo);
   });
   socket.on("join_room", (roomId, cb) => {
     socket.join(roomId);
     cb(`joined ${roomId} Room`);
   });
   socket.on("send_message", (msg, room) => {
-    socket.to(room).emit("received_message", msg, room);
+    socket.broadcast.to(room).emit("received_message", msg, room);
   });
 });
