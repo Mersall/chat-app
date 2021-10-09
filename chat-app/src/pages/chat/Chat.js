@@ -13,45 +13,44 @@ var socket = io("https://mysterious-mesa-55870.herokuapp.com", {
 
 export default function Chat(props) {
   const location = useLocation();
-  const { userName, room } = location.state;
+  const { username, interlocutor } = location.state;
   const [text, setText] = useState("");
   const [messages, setMessages] = useState([]);
-  const [interlocutor, setInterlocutor] = useState("");
 
   useEffect(() => {
-    socket.emit("join_room", room, (arg) => {
-      alert(arg);
-    });
-    socket.emit(
-      "user_joined",
-      {
-        text: `${userName} join the room`,
-        userName,
-        date: new Date(),
-      },
-      room,
-    );
+    socket.emit("register", username);
 
+    // eslint-disable-next-line no-unused-expressions
+    () => socket.emit("disconnect");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  socket.on("user_joined", (joinedUser) => {
-    setMessages([...messages, joinedUser]);
+  socket.on("private_chat", function (data) {
+    let message = { to: data.username, message: data.message, date: data.date };
+    setMessages([...messages, message]);
   });
-  socket.on("received_message", (msg) => setMessages([...messages, msg]));
 
   const sendMessage = (event) => {
-    event.preventDefault();
-    const message = { text, userName, date: new Date() };
+    let message = {
+      to: interlocutor,
+      message: text,
+      date: new Date(),
+      username,
+    };
     setMessages([...messages, message]);
-    socket.emit("send_message", message, room);
+    socket.emit("private_chat", message);
+    event.preventDefault();
     setText("");
   };
 
   return (
     <div className='chat_container'>
       <ChatHeader interlocutor={interlocutor} />
-      <ChatBody messages={messages} userName={userName} />
+      <ChatBody
+        messages={messages}
+        username={username}
+        interlocutor={interlocutor}
+      />
       <ChatFooter sendMessage={sendMessage} text={text} setText={setText} />
     </div>
   );

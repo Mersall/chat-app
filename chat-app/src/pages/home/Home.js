@@ -3,33 +3,33 @@ import "./Home.css";
 import { Link } from "react-router-dom";
 
 export default function Home(params) {
-  const [userName, setUserName] = useState("");
-  const [room, setRoom] = useState("");
+  const [username, setUsername] = useState("");
+  const [interlocutor, setInterlocutor] = useState("");
 
   return (
     <div className='container'>
       <h1>Elixirator chat</h1>
       <form className='form'>
-        <label>Enter you name:</label>
+        <label> your username:</label>
         <input
           className='input'
-          value={userName}
-          onChange={(e) => setUserName(e.target.value)}
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
         />
-        <label>Enter Room id:</label>
+        <label>interlocutor username:</label>
         <input
           className='input'
-          value={room}
-          onChange={(e) => setRoom(e.target.value)}
+          value={interlocutor}
+          onChange={(e) => setInterlocutor(e.target.value)}
         />
 
         <Link
           className='submit_button'
           to={
-            room && userName
+            interlocutor && username
               ? {
-                  pathname: userName ? "/chat" : null,
-                  state: { userName, room },
+                  pathname: username ? "/chat" : null,
+                  state: { username, interlocutor },
                 }
               : null
           }>

@@ -1,10 +1,10 @@
 import moment from "moment";
-export default function ChatBody({ messages, userName }) {
+export default function ChatBody({ messages, username }) {
   return (
     <div className='chat_body'>
       <ul>
         {messages.map((res, index) => {
-          let isCurrentUser = res.userName === userName;
+          let isCurrentUser = res.username === username;
           return (
             <li
               style={{
@@ -28,7 +28,7 @@ export default function ChatBody({ messages, userName }) {
                   background: isCurrentUser ? "#E1F1F8" : "#F2F2F2",
                 }}
                 className='msg_text_container'>
-                <span>{res.text} </span>
+                <span>{res.message} </span>
                 <span className='date_text'>
                   {moment(res.date).format("HH:mm:ss")}
                 </span>
