@@ -1,4 +1,5 @@
 import moment from "moment";
+import "./ChatBody.css";
 export default function ChatBody({ messages, username }) {
   return (
     <div className='chat_body'>

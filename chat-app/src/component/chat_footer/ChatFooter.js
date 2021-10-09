@@ -1,3 +1,5 @@
+import "./ChatFooter.css";
+
 export default function ChatFooter({ sendMessage, text, setText }) {
   return (
     <footer>

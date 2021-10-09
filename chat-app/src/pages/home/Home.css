@@ -2,6 +2,12 @@
   display: flex;
   align-items: center;
   flex-direction: column;
+  background-color: #fff2ef;
+  height: 100vh;
+}
+.header {
+  color: #b400ff;
+  font-family: fantasy;
 }
 .form {
   display: flex;
@@ -15,10 +21,15 @@
 .submit_button {
   align-self: center;
   margin-top: 10px;
-  background: red;
+  background: #200b0b;
   text-align: center;
   padding: 10px;
   border-radius: 3px;
   color: white;
   text-decoration: none;
+}
+
+.input {
+  margin-top: 5px;
+  margin-bottom: 5px;
 }

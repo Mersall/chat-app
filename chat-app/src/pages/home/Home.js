@@ -8,9 +8,9 @@ export default function Home(params) {
 
   return (
     <div className='container'>
-      <h1>Elixirator chat</h1>
+      <h1 className='header'>Elixirator chat</h1>
       <form className='form'>
-        <label> your username:</label>
+        <label> Your username:</label>
         <input
           className='input'
           value={username}
