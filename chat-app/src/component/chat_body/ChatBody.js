@@ -1,6 +1,16 @@
 import moment from "moment";
+import { useEffect, useRef } from "react";
 import "./ChatBody.css";
 export default function ChatBody({ messages, username }) {
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+  const messagesEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <div className='chat_body'>
       <ul>
@@ -38,6 +48,7 @@ export default function ChatBody({ messages, username }) {
           );
         })}
       </ul>
+      <div ref={messagesEndRef} />
     </div>
   );
 }

@@ -1,19 +1,18 @@
 import React from "react";
 import "./Chat.css";
-import { useHistory, useLocation } from "react-router";
+import { useLocation } from "react-router";
 import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import ChatBody from "../../component/chat_body/ChatBody";
 import ChatHeader from "../../component/chat_header/ChatHeader";
 import ChatFooter from "../../component/chat_footer/ChatFooter";
 
-var socket = io("http://localhost:8080", {
+var socket = io("https://mysterious-mesa-55870.herokuapp.com", {
   transports: ["websocket"],
 });
 
 export default function Chat(props) {
   const location = useLocation();
-  const history = useHistory();
   const { username, interlocutor } = location.state;
   const [text, setText] = useState("");
   const [messages, setMessages] = useState([]);
@@ -23,12 +22,14 @@ export default function Chat(props) {
       alert(arg);
     });
 
-    // eslint-disable-next-line no-unused-expressions
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   socket.on("private_chat", function (data) {
-    let message = { to: data.username, message: data.message, date: data.date };
+    let message = {
+      to: data.username,
+      message: data.message,
+      date: data.date,
+    };
     if (data.username === interlocutor) setMessages([...messages, message]);
   });
 
