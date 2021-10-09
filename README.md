@@ -16,6 +16,10 @@ the app is built with React and Nodejs using sockets.io on both sides,
 
 3- rooms so user can send messages to a bunch of users
 
+4- add typing ..
+
+5- add green light when interlocutor available
+
 # Getting Started with chat
 
 # chat-app(React)
