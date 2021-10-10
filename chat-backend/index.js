@@ -21,9 +21,7 @@ io.on("connection", (socket) => {
 
   /*Private chat*/
   socket.on("private_chat", function (data) {
-    const to = data.to,
-      message = data.message,
-      date = data.date;
+    const { to, message, date } = data;
 
     if (connectedUsers.hasOwnProperty(to)) {
       connectedUsers[to].emit("private_chat", {

@@ -7,9 +7,17 @@ import ChatBody from "../../component/chat_body/ChatBody";
 import ChatHeader from "../../component/chat_header/ChatHeader";
 import ChatFooter from "../../component/chat_footer/ChatFooter";
 
+// production
+
 var socket = io("https://mysterious-mesa-55870.herokuapp.com", {
   transports: ["websocket"],
 });
+
+// development
+
+// var socket = io("http://localhost:8080", {
+//   transports: ["websocket"],
+// });
 
 export default function Chat(props) {
   const location = useLocation();
@@ -18,19 +26,12 @@ export default function Chat(props) {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    socket.emit("register", username, (arg) => {
-      alert(arg);
-    });
-
+    socket.emit("register", username);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   socket.on("private_chat", function (data) {
-    let message = {
-      to: data.username,
-      message: data.message,
-      date: data.date,
-    };
-    if (data.username === interlocutor) setMessages([...messages, message]);
+    if (data.username === interlocutor) setMessages([...messages, data]);
   });
 
   const sendMessage = (event) => {
