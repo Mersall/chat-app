@@ -10,15 +10,15 @@ the app is built with React and Nodejs using sockets.io on both sides,
 
 # features need to be in the future
 
-1- trigger a sound when getting a new message.
-
-2-user can upload his own picture.
+1- trigger a notification when getting a new message.
 
 3- rooms so user can send messages to a bunch of users
 
 4- add typing ..
 
-5- add green light when interlocutor available
+5- add green light when interlocutor is available
+
+6 - encrypt messages
 
 # Getting Started with chat
 

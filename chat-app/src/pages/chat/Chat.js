@@ -26,13 +26,16 @@ export default function Chat(props) {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
+    // register
     socket.emit("register", username);
+    // private_chat
+    socket.on("private_chat", function (data) {
+      if (data.username === interlocutor)
+        setMessages((messages) => [...messages, data]);
+    });
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  socket.on("private_chat", function (data) {
-    if (data.username === interlocutor) setMessages([...messages, data]);
-  });
 
   const sendMessage = (event) => {
     let message = {
