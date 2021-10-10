@@ -20,6 +20,8 @@ the app is built with React and Nodejs using sockets.io on both sides,
 
 6 - encrypt messages
 
+7 - user can create chat invitation link with his username
+
 # Getting Started with chat
 
 # chat-app(React)
